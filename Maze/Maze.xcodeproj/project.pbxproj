@@ -24,6 +24,7 @@
 		28D2785A179DA2AF002B3E97 /* WinScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D27859179DA2AF002B3E97 /* WinScene.m */; };
 		28D2785D179DA335002B3E97 /* MazeScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D2785C179DA335002B3E97 /* MazeScene.m */; };
 		28D27862179DE592002B3E97 /* LoseScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D27861179DE592002B3E97 /* LoseScene.m */; };
+		28D27865179DF0A8002B3E97 /* Line.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D27864179DF0A8002B3E97 /* Line.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +63,8 @@
 		28D2785C179DA335002B3E97 /* MazeScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MazeScene.m; sourceTree = "<group>"; };
 		28D27860179DE592002B3E97 /* LoseScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoseScene.h; sourceTree = "<group>"; };
 		28D27861179DE592002B3E97 /* LoseScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoseScene.m; sourceTree = "<group>"; };
+		28D27863179DF0A8002B3E97 /* Line.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Line.h; sourceTree = "<group>"; };
+		28D27864179DF0A8002B3E97 /* Line.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Line.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +133,8 @@
 				28D27856179DA22E002B3E97 /* SpriteViewController.m */,
 				28D2785B179DA335002B3E97 /* MazeScene.h */,
 				28D2785C179DA335002B3E97 /* MazeScene.m */,
+				28D27863179DF0A8002B3E97 /* Line.h */,
+				28D27864179DF0A8002B3E97 /* Line.m */,
 				28D27858179DA2AF002B3E97 /* WinScene.h */,
 				28D27859179DA2AF002B3E97 /* WinScene.m */,
 				28D27860179DE592002B3E97 /* LoseScene.h */,
@@ -266,6 +271,7 @@
 			files = (
 				28D27835179D9EA5002B3E97 /* YLJAppDelegate.m in Sources */,
 				28D27831179D9EA5002B3E97 /* main.m in Sources */,
+				28D27865179DF0A8002B3E97 /* Line.m in Sources */,
 				28D2785D179DA335002B3E97 /* MazeScene.m in Sources */,
 				28D2785A179DA2AF002B3E97 /* WinScene.m in Sources */,
 				28D27857179DA22E002B3E97 /* SpriteViewController.m in Sources */,

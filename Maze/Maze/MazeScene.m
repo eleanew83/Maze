@@ -9,6 +9,8 @@
 #import "MazeScene.h"
 #import "WinScene.h"
 #import "LoseScene.h"
+#import "Line.h"
+//#import <UIGravityBehavior.h>
 
 @interface MazeScene ()
 @property BOOL contentCreated;
@@ -32,11 +34,14 @@
 {
     self.backgroundColor = [SKColor blackColor];
     self.scaleMode = SKSceneScaleModeAspectFit;
+    self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
     
-    [self createMaze];//??
+    _listOfBlock = [[NSMutableArray alloc] init];
+    [self createMaze];
     
     _user = [self newUser];
     _user.position = CGPointMake(CGRectGetMinX(self.frame),CGRectGetMidY(self.frame)+16);
+    
     [self addChild:_user];
 }
 
@@ -104,16 +109,32 @@
     }
 }
 
+- (void)update:(NSTimeInterval)currentTime
+{
+    
+}
+
+- (void)didSimulatePhysics
+{
+    
+}
+
 - (SKSpriteNode *)newBlock
 {
     SKSpriteNode *block = [[SKSpriteNode alloc] initWithColor:[SKColor grayColor] size:CGSizeMake(32,32)];
-
+    block.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:block.size];
+    block.physicsBody.usesPreciseCollisionDetection = YES;
+    block.physicsBody.dynamic = NO;
+    
     return block;
 }
 
 - (SKSpriteNode *)newUser
 {
     SKSpriteNode *user = [[SKSpriteNode alloc] initWithColor:[SKColor yellowColor] size:CGSizeMake(32,32)];
+    user.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:user.size];
+    user.physicsBody.dynamic = NO;
+    
     return user;
 }
 
@@ -123,8 +144,26 @@
         CGPoint location = [t locationInNode:self];
         SKAction *moveToClick = [SKAction moveTo:location duration:0.01];
         [self.user runAction:moveToClick];
-        //for (SKSpriteNode *block in _listOfBlock) {
-                    //}
+        //[self setXComponent:location.x-_user.position.x setYComponent:location.y-_user.position.y];
+        
+        //Line *line = [[Line alloc] init];
+        //[line setBegin:_user.position];
+        //[line setEnd:location];
+        
+        for (SKSpriteNode *block in _listOfBlock) {
+            if ([block containsPoint:location]) {
+                SKScene* loseScene  = [[LoseScene alloc] initWithSize:self.size];
+                SKTransition *doors = [SKTransition doorsOpenVerticalWithDuration:0.5];
+                [self.view presentScene:loseScene transition:doors];
+            }
+            //for (CGPoint point in line.pts) {
+            //    if ([block containsPoint:point]) {
+            //        SKScene* loseScene  = [[LoseScene alloc] initWithSize:self.size];
+            //        SKTransition *doors = [SKTransition doorsOpenVerticalWithDuration:0.5];
+            //        [self.view presentScene:loseScene transition:doors];
+            //    }
+            //}
+        }
         if (location.x > CGRectGetMaxX(self.frame)-32 && location.y > CGRectGetMidY(self.frame)-32 && location.y < CGRectGetMidY(self.frame)+32) {
             SKScene* winScene  = [[WinScene alloc] initWithSize:self.size];
             SKTransition *doors = [SKTransition doorsOpenVerticalWithDuration:0.5];

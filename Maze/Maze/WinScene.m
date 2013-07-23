@@ -35,7 +35,7 @@
 {
     SKLabelNode *winEndNode = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
     winEndNode.text = @"You Win!";
-    winEndNode.fontSize = 42;
+    winEndNode.fontSize = 60;
     winEndNode.position = CGPointMake(CGRectGetMidX(self.frame),CGRectGetMidY(self.frame));
     winEndNode.name = @"winEndNode";
     return winEndNode;

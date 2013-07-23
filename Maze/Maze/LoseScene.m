@@ -34,7 +34,7 @@
 {
     SKLabelNode *loseEndNode = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
     loseEndNode.text = @"You Lose!";
-    loseEndNode.fontSize = 42;
+    loseEndNode.fontSize = 60;
     loseEndNode.position = CGPointMake(CGRectGetMidX(self.frame),CGRectGetMidY(self.frame));
     loseEndNode.name = @"loseEndNode";
     return loseEndNode;
