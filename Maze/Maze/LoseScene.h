@@ -8,6 +8,6 @@
 
 #import <SpriteKit/SpriteKit.h>
 
-@interface LoseScene : SKScene
+@interface LoseScene : SKScene <UIGestureRecognizerDelegate>
 
 @end

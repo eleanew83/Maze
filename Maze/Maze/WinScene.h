@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <SpriteKit/SpriteKit.h>
 
-@interface WinScene : SKScene
+@interface WinScene : SKScene <UIGestureRecognizerDelegate>
 
 @end

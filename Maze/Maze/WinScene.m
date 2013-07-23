@@ -29,6 +29,7 @@
     self.backgroundColor = [SKColor blueColor];
     self.scaleMode = SKSceneScaleModeAspectFit;
     [self addChild: [self winEndNode]];
+    [self addChild:[self restartNode]];
 }
 
 - (SKLabelNode*)winEndNode
@@ -40,6 +41,30 @@
     winEndNode.name = @"winEndNode";
     return winEndNode;
 }
+
+- (SKLabelNode *)restartNode
+{
+    
+    SKLabelNode *restart = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
+    restart.text = @"Tap anywhere to replay";
+    restart.fontSize = 40;
+    restart.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)-60);
+    return restart;
+    
+}
+
+- (void)touchesBegan:(NSSet*) touches withEvent:(UIEvent *)event
+{
+    for (UITouch *t in touches) {
+        
+        SKScene* mazeScene  = [[MazeScene alloc] initWithSize:self.size];
+        SKTransition *doors = [SKTransition doorsOpenVerticalWithDuration:0.5];
+        [self.view presentScene:mazeScene transition:doors];
+        
+        
+    }
+}
+
 
 
 @end

@@ -115,7 +115,6 @@ static const uint32_t blockCategory =  0x1 << 1;
 
 - (void)update:(NSTimeInterval)currentTime
 {
-    
 }
 
 - (void)didSimulatePhysics
@@ -152,8 +151,9 @@ static const uint32_t blockCategory =  0x1 << 1;
 {
     if((contact.bodyA.categoryBitMask & contact.bodyB.categoryBitMask) == 0)
     {
-        
-        [_user.physicsBody applyForce:CGPointMake(50,50)];
+        /*SKScene* loseScene  = [[LoseScene alloc] initWithSize:self.size];
+        SKTransition *doors = [SKTransition doorsOpenVerticalWithDuration:0.5];
+        [self.view presentScene:loseScene transition:doors];*/
     }
 
 }
@@ -172,12 +172,15 @@ static const uint32_t blockCategory =  0x1 << 1;
         //[line setBegin:_user.position];
         //[line setEnd:location];
         
-        for (SKSpriteNode *block in _listOfBlock) {
+        //disable clicking on wall = losing
+        
+       /* for (SKSpriteNode *block in _listOfBlock) {
             if ([block containsPoint:location]) {
                 SKScene* loseScene  = [[LoseScene alloc] initWithSize:self.size];
                 SKTransition *doors = [SKTransition doorsOpenVerticalWithDuration:0.5];
                 [self.view presentScene:loseScene transition:doors];
-            }
+            }*/
+        
             //for (CGPoint point in line.pts) {
             //    if ([block containsPoint:point]) {
             //        SKScene* loseScene  = [[LoseScene alloc] initWithSize:self.size];
@@ -185,11 +188,19 @@ static const uint32_t blockCategory =  0x1 << 1;
             //        [self.view presentScene:loseScene transition:doors];
             //    }
             //}
-        }
-        if (location.x > CGRectGetMaxX(self.frame)-32 && location.y > CGRectGetMidY(self.frame)-32 && location.y < CGRectGetMidY(self.frame)+32) {
+        
+        /*if (location.x > CGRectGetMaxX(self.frame)-32 && location.y > CGRectGetMidY(self.frame)-32 && location.y < CGRectGetMidY(self.frame)+32) {
             SKScene* winScene  = [[WinScene alloc] initWithSize:self.size];
             SKTransition *doors = [SKTransition doorsOpenVerticalWithDuration:0.5];
             [self.view presentScene:winScene transition:doors];
+        }*/
+        
+        
+        if (_user.position.x > CGRectGetMaxX(self.frame)-32 && _user.position.y > CGRectGetMidY(self.frame)-32 && _user.position.y < CGRectGetMidY(self.frame)+32){
+            SKScene* winScene  = [[WinScene alloc] initWithSize:self.size];
+            SKTransition *doors = [SKTransition doorsOpenVerticalWithDuration:0.5];
+            [self.view presentScene:winScene transition:doors];
+            
         }
     }
 }
