@@ -17,6 +17,8 @@
 @property NSMutableArray *listOfBlock;
 @property SKSpriteNode *user;
 @end
+static const uint32_t userCategory =  0;
+static const uint32_t blockCategory =  0x1 << 1;
 
 @implementation MazeScene
 
@@ -35,12 +37,14 @@
     self.backgroundColor = [SKColor blackColor];
     self.scaleMode = SKSceneScaleModeAspectFit;
     self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
+    self.physicsWorld.gravity = CGPointMake(0,0);
+    self.physicsWorld.contactDelegate = self;
     
     _listOfBlock = [[NSMutableArray alloc] init];
     [self createMaze];
     
     _user = [self newUser];
-    _user.position = CGPointMake(CGRectGetMinX(self.frame),CGRectGetMidY(self.frame)+16);
+    _user.position = CGPointMake(CGRectGetMinX(self.frame)+20,CGRectGetMidY(self.frame)+16);
     
     [self addChild:_user];
 }
@@ -125,6 +129,8 @@
     block.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:block.size];
     block.physicsBody.usesPreciseCollisionDetection = YES;
     block.physicsBody.dynamic = NO;
+    block.physicsBody.categoryBitMask = blockCategory;
+    block.physicsBody.contactTestBitMask = userCategory;
     
     return block;
 }
@@ -133,17 +139,33 @@
 {
     SKSpriteNode *user = [[SKSpriteNode alloc] initWithColor:[SKColor yellowColor] size:CGSizeMake(32,32)];
     user.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:user.size];
-    user.physicsBody.dynamic = NO;
+    user.physicsBody.dynamic = YES;
+    user.physicsBody.affectedByGravity = NO;
+    user.physicsBody.usesPreciseCollisionDetection = YES;
+    user.physicsBody.categoryBitMask = userCategory;
+    user.physicsBody.contactTestBitMask = blockCategory;
     
     return user;
+}
+
+- (void)didBeginContact:(SKPhysicsContact *)contact
+{
+    if((contact.bodyA.categoryBitMask & contact.bodyB.categoryBitMask) == 0)
+    {
+        
+        [_user.physicsBody applyForce:CGPointMake(50,50)];
+    }
+
 }
 
 - (void)touchesBegan:(NSSet*) touches withEvent:(UIEvent *)event
 {
     for (UITouch *t in touches) {
         CGPoint location = [t locationInNode:self];
-        SKAction *moveToClick = [SKAction moveTo:location duration:0.01];
-        [self.user runAction:moveToClick];
+        CGPoint vector = CGPointMake(location.x-_user.position.x, location.y-_user.position.y);
+        [_user.physicsBody applyForce:vector];
+        //SKAction *moveToClick = [SKAction moveTo:location duration:0.01];
+        //[self.user runAction:moveToClick];
         //[self setXComponent:location.x-_user.position.x setYComponent:location.y-_user.position.y];
         
         //Line *line = [[Line alloc] init];
